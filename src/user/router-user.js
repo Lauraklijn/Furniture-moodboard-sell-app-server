@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const router = new Router();
 
-router.post("/user", async (request, response) => {
+router.post("/signup", async (request, response) => {
   if (!request.body.email || !request.body.password) {
     return response
       .status(400)
