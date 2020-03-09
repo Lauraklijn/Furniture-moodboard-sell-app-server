@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const User = require("./model-user");
+const { User, UserProfile } = require("./model-user");
+
 const bcrypt = require("bcrypt");
 const { toJWT } = require("../auth/jwt");
 
@@ -49,5 +50,40 @@ router.post("/login", async (request, response) => {
     return response.status(200).send({ token: token });
   }
 });
+
+//Creating userprofile
+router.post("/userprofile/signup", async (request, response, next) => {
+  try {
+    console.log("CHECK REQUEST.BODY!!!!!!", request);
+    //const newProfile = { ...req.body, Userid: req.user.dataValues.id };
+    const userProfileResult = await UserProfile.create(request.body);
+
+    response.json({
+      message: "User Profile Created",
+      userProfile: { ...userProfileResult.dataValues }
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/userprofile/:id", (req, res, next) => {
+  console.log("TEST ID endpoint", req.params.id);
+  UserProfile.findOne({ where: { userId: req.params.id } }, { include: [User] })
+    .then(profile => {
+      //ticket.dataValues.totalRisk = 9;
+      res.send(profile);
+    })
+    .catch(next);
+});
+
+//findByPk(req.params.id, { include: [User] })
+
+// const userProfileResult = await UserProfile.create(newProfile);
+// res.status(201).send(userProfileResult);
+// } catch (error) {
+// next(error);
+// }
+// });
 
 module.exports = router;

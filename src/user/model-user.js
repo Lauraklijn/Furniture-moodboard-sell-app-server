@@ -2,10 +2,6 @@ const Sequelize = require("sequelize");
 const db = require("../../db");
 
 const User = db.define("user", {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -14,11 +10,23 @@ const User = db.define("user", {
   password: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  image: {
-    type: Sequelize.STRING,
-    allowNull: false
   }
 });
 
-module.exports = User;
+// ------- Model for userProfile
+const UserProfile = db.define("userprofile", {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  image: {
+    type: Sequelize.STRING
+  },
+  discription: {
+    type: Sequelize.STRING
+  }
+});
+
+UserProfile.belongsTo(User);
+
+module.exports = { User, UserProfile };
