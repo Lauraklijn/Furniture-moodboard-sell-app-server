@@ -90,4 +90,12 @@ router.get("/userprofile/:id", (req, res, next) => {
 // }
 // });
 
+router.get("/userprofile", (req, res, next) => {
+  UserProfile.findAll()
+    .then(profile => {
+      res.json(profile);
+    })
+    .catch(next);
+});
+
 module.exports = router;
