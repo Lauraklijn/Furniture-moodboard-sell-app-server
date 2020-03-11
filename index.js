@@ -13,9 +13,11 @@ app.use(parserMiddleware);
 
 const imageRoutes = require("./src/images/router-images");
 const userRoutes = require("./src/user/router-user");
+const productRoutes = require("./src/products/router-product");
 
 app.use(imageRoutes);
 app.use(userRoutes);
+app.use(productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello");

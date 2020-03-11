@@ -28,5 +28,6 @@ const UserProfile = db.define("userprofile", {
 });
 
 UserProfile.belongsTo(User);
+User.hasOne(UserProfile);
 
 module.exports = { User, UserProfile };
