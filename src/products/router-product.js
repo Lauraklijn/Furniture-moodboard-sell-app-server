@@ -3,7 +3,7 @@ const Product = require("../products/model-product");
 
 const router = new Router();
 
-router.get("/userprofile/:id/products", (req, res, next) => {
+router.get("/userprofile/:id", (req, res, next) => {
   Product.findAll({
     where: { userId: req.params.id }
   })
@@ -13,7 +13,7 @@ router.get("/userprofile/:id/products", (req, res, next) => {
     .catch(next);
 });
 
-router.post("/userprofile/:id/products", (req, res, next) => {
+router.post("/userprofile/:id", (req, res, next) => {
   console.log("REQUEST!!!!!!!!!!!!!!!!!!!!!!!", req.body);
 
   Product.create({ ...req.body, userId: req.params.id })
